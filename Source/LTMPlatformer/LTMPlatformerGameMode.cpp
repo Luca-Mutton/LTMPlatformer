@@ -3,6 +3,30 @@
 #include "LTMPlatformerGameMode.h"
 #include "LTMPlatformerCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Blueprint/UserWidget.h"
+#include "Kismet/GameplayStatics.h"
+#include "LTMPlatformerWidget.h"
+
+
+
+void ALTMPlatformerGameMode::BeginPlay()
+{
+	//UGameplayStatics::GetPlayerController(GetWorld(), 0)->bShowMouseCursor = true;
+
+	//GameMode = Cast<ULTMPlatformerWidget>(CreateWidget(GetWorld(), GameHUDClass));
+	///*check(GameMode);*/
+
+	//GameMode->InitailizeHUD(this);
+	//GameMode->AddToViewport();
+
+}
+
+void ALTMPlatformerGameMode::AddCoin()
+	{
+		TotalCoins += 1;
+
+		OnCoinsCountChanged.Broadcast(TotalCoins);
+	}
 
 ALTMPlatformerGameMode::ALTMPlatformerGameMode()
 {
@@ -12,4 +36,6 @@ ALTMPlatformerGameMode::ALTMPlatformerGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
+	
 }

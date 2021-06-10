@@ -65,11 +65,24 @@ protected:
 
 	virtual void Landed(const FHitResult& Hit) override;
 
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+private:
+	//reference to GAMEHUD
+	UPROPERTY(VisibleInstanceOnly)
+		class ALTMPlatformerGameMode* LTM;
+
+
+
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	UFUNCTION()
+		void AddCoin();
 
 	UFUNCTION()
 		void DoubleJump();

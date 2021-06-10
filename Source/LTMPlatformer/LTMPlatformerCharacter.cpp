@@ -1,6 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "LTMPlatformerCharacter.h"
+#include "LTMPlatformerGameMode.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -10,6 +11,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Runtime/Engine/Classes/GameFrameWork/CharacterMovementComponent.h"
 #include "Runtime/Engine/Public/TimerManager.h"
+#include <Runtime/Engine/Classes/Kismet/GameplayStatics.h>
+
 
 //////////////////////////////////////////////////////////////////////////
 // ALTMPlatformerCharacter
@@ -90,6 +93,20 @@ void ALTMPlatformerCharacter::SetupPlayerInputComponent(class UInputComponent* P
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ALTMPlatformerCharacter::OnResetVR);
 }
 
+void ALTMPlatformerCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	LTM = Cast<ALTMPlatformerGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+
+	check(LTM);
+
+}
+
+void ALTMPlatformerCharacter::AddCoin()
+{
+	LTM->AddCoin();
+}
 
 void ALTMPlatformerCharacter::OnResetVR()
 {
@@ -199,3 +216,4 @@ void ALTMPlatformerCharacter::MoveRight(float Value)
 		AddMovementInput(Direction, Value);
 	}
 }
+
